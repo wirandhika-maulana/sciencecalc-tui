@@ -1,9 +1,9 @@
-/// State input untuk form TUI
+/// State input untuk form TUI interaktif
 #[derive(Debug, Clone)]
 pub struct InputState {
-    /// Field input (bisa diperbesar sesuai kebutuhan form)
+    /// Field input (misal: ["", "", ...] sesuai kebutuhan form)
     pub fields: Vec<String>,
-    /// Index field yang sedang diedit
+    /// Index field yang sedang diedit/aktif
     pub current_field: usize,
 }
 
@@ -16,31 +16,31 @@ impl InputState {
         }
     }
 
-    /// Pindah ke field berikutnya
+    /// Pindah ke field berikutnya (jika belum di paling akhir)
     pub fn next_field(&mut self) {
         if self.current_field + 1 < self.fields.len() {
             self.current_field += 1;
         }
     }
 
-    /// Pindah ke field sebelumnya
+    /// Pindah ke field sebelumnya (jika belum di paling awal)
     pub fn prev_field(&mut self) {
         if self.current_field > 0 {
             self.current_field -= 1;
         }
     }
 
-    /// Edit field yang sedang aktif (misal ketika mengetik angka)
+    /// Tambah karakter ke field aktif (misal saat user mengetik)
     pub fn push_char(&mut self, c: char) {
         self.fields[self.current_field].push(c);
     }
 
-    /// Hapus satu karakter pada field aktif
+    /// Hapus satu karakter (backspace) di field aktif
     pub fn pop_char(&mut self) {
         self.fields[self.current_field].pop();
     }
 
-    /// Reset semua field
+    /// Reset semua field ke kosong, kursor ke awal
     pub fn clear(&mut self) {
         for f in &mut self.fields {
             f.clear();
@@ -68,9 +68,6 @@ impl InputState {
 
 impl Default for InputState {
     fn default() -> Self {
-        InputState {
-            fields: vec![String::new(); 4],
-            current_field: 0,
-        }
+        InputState::with_fields(4)
     }
 }
