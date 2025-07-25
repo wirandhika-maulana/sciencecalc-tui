@@ -120,10 +120,10 @@ fn render_header(
     f.render_widget(header, area);
 }
 use ratatui::prelude::*;
-use ratatui::widgets::{Block, Borders, List, ListItem, Paragraph, Tabs, ListState};
+use ratatui::widgets::{Block, Borders, List, ListItem, Paragraph, Tabs};
 use crossterm::{event, execute, terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen}};
 use std::{io, error::Error};
-use clap::Parser;
+
 use log::{info, error};
 use chrono::Local;
 
@@ -145,7 +145,6 @@ enum SubMenu {
     None,
 }
 
-#[derive(Clone, Copy, PartialEq, Debug)]
 #[derive(Clone, Copy, PartialEq, Debug)]
 enum MatematikaFunc {
     // Aritmetika
@@ -777,7 +776,7 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
     }
 }
 
-fn ui<B: Backend>(f: &mut Frame<B>, app: &App) {
+fn ui(f: &mut Frame<'_>, app: &App) {
     let size = f.area();
     let theme = "default";
     let ascii_lines = create_ascii_header(theme);
