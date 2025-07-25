@@ -1,4 +1,4 @@
-use ratatui::text::{Line, Span, Text, Spans};
+use ratatui::text::{Line, Span, Text};
 use ratatui::style::{Color, Modifier};
 use ratatui::layout::{Alignment, Rect};
 use ratatui::widgets::Wrap;
@@ -796,7 +796,7 @@ fn ui(f: &mut Frame<'_>, app: &App) {
 
     // Tabs utama
     let menu_titles = ["Matematika", "Fisika", "Kimia"];
-    let tabs = Tabs::new(menu_titles.iter().cloned().map(Spans::from).collect())
+    let tabs = Tabs::new(menu_titles.iter().map(|t| Spans::from(vec![Span::raw(*t)])).collect())
         .select(app.selected_menu)
         .block(Block::default().borders(Borders::ALL).title("Menu"))
         .highlight_style(Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD));
