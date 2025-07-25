@@ -1,4 +1,4 @@
-use ratatui::text::{Line, Span, Text};
+use ratatui::text::{Line, Span, Text, Spans};
 use ratatui::style::{Color, Modifier};
 use ratatui::layout::{Alignment, Rect};
 use ratatui::widgets::Wrap;
@@ -97,8 +97,8 @@ fn create_owner_line(theme: &str) -> Line<'static> {
     )
 }
 
-fn render_header<B: Backend>(
-    f: &mut Frame<B>,
+fn render_header(
+    f: &mut Frame<'_>,
     area: Rect,
     ascii_lines: &Vec<Line<'_>>,
     owner: &Line<'_>,
@@ -145,8 +145,8 @@ enum SubMenu {
     None,
 }
 
-#[derive(Clone, Copy, PartialEq)]
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Debug)]
+#[derive(Clone, Copy, PartialEq, Debug)]
 enum MatematikaFunc {
     // Aritmetika
     Pangkat,
@@ -205,7 +205,7 @@ enum MatematikaFunc {
     OktalKeHexadesimal,
 }
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Debug)]
 enum FisikaFunc {
     // Energi
     EnergiKinetik,
@@ -221,7 +221,7 @@ enum FisikaFunc {
     OhmHambatan,
 }
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Debug)]
 enum KimiaFunc {
     // Gas
     TekananGasIdeal,
@@ -778,7 +778,7 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
 }
 
 fn ui<B: Backend>(f: &mut Frame<B>, app: &App) {
-    let size = f.size();
+    let size = f.area();
     let theme = "default";
     let ascii_lines = create_ascii_header(theme);
     let owner = create_owner_line(theme);
