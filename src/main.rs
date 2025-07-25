@@ -322,30 +322,61 @@ impl App {
         if let Some(func) = self.current_func_mtk {
             use MatematikaFunc::*;
             self.input_fields = match func {
-                Pangkat => vec![InputField { label: "base", value: String::new() }, InputField { label: "eksponen", value: String::new() }],
-                AkarKuadrat => vec![InputField { label: "x", value: String::new() }],
-                Faktorial => vec![InputField { label: "n", value: String::new() }],
-                Kombinasi | Permutasi | KombinasiPerulangan | PermutasiPerulangan => vec![InputField { label: "n", value: String::new() }, InputField { label: "r", value: String::new() }],
-                SPLSV | SPLSVFrac => vec![InputField { label: "a", value: String::new() }, InputField { label: "b", value: String::new() }],
-                SPLDV | SPLDVFrac => vec![InputField { label: "a1", value: String::new() }, InputField { label: "b1", value: String::new() }, InputField { label: "c1", value: String::new() }, InputField { label: "a2", value: String::new() }, InputField { label: "b2", value: String::new() }, InputField { label: "c2", value: String::new() }],
-                Kuadrat | KuadratFrac => vec![InputField { label: "a", value: String::new() }, InputField { label: "b", value: String::new() }, InputField { label: "c", value: String::new() }],
-                Determinant2x2 | Inverse2x2 => vec![InputField { label: "a", value: String::new() }, InputField { label: "b", value: String::new() }, InputField { label: "c", value: String::new() }, InputField { label: "d", value: String::new() }],
-                Matriks2x2 | Transpose2x2 => vec![InputField { label: "m11", value: String::new() }, InputField { label: "m12", value: String::new() }, InputField { label: "m21", value: String::new() }, InputField { label: "m22", value: String::new() }],
-                Determinant3x3 | Inverse3x3 | Transpose3x3 => vec![InputField { label: "m11", value: String::new() }, InputField { label: "m12", value: String::new() }, InputField { label: "m13", value: String::new() }, InputField { label: "m21", value: String::new() }, InputField { label: "m22", value: String::new() }, InputField { label: "m23", value: String::new() }, InputField { label: "m31", value: String::new() }, InputField { label: "m32", value: String::new() }, InputField { label: "m33", value: String::new() }],
+                Pangkat => vec![InputField { label: "Basis (x)", value: String::new() }, InputField { label: "Eksponen (y)", value: String::new() }],
+                AkarKuadrat => vec![InputField { label: "Angka (x)", value: String::new() }],
+                Faktorial => vec![InputField { label: "Bilangan (n)", value: String::new() }],
+                Kombinasi | Permutasi | KombinasiPerulangan | PermutasiPerulangan => vec![InputField { label: "Jumlah total (n)", value: String::new() }, InputField { label: "Dipilih (r)", value: String::new() }],
+                SPLSV | SPLSVFrac => vec![InputField { label: "Koefisien x (a)", value: String::new() }, InputField { label: "Hasil (b)", value: String::new() }],
+                SPLDV | SPLDVFrac => vec![
+                    InputField { label: "a1 (koef x1)", value: String::new() },
+                    InputField { label: "b1 (koef y1)", value: String::new() },
+                    InputField { label: "c1 (hasil 1)", value: String::new() },
+                    InputField { label: "a2 (koef x2)", value: String::new() },
+                    InputField { label: "b2 (koef y2)", value: String::new() },
+                    InputField { label: "c2 (hasil 2)", value: String::new() }
+                ],
+                Kuadrat | KuadratFrac => vec![
+                    InputField { label: "a (koef x^2)", value: String::new() },
+                    InputField { label: "b (koef x)", value: String::new() },
+                    InputField { label: "c (konstanta)", value: String::new() }
+                ],
+                Determinant2x2 | Inverse2x2 => vec![
+                    InputField { label: "a (baris1 kolom1)", value: String::new() },
+                    InputField { label: "b (baris1 kolom2)", value: String::new() },
+                    InputField { label: "c (baris2 kolom1)", value: String::new() },
+                    InputField { label: "d (baris2 kolom2)", value: String::new() }
+                ],
+                Matriks2x2 | Transpose2x2 => vec![
+                    InputField { label: "m11", value: String::new() },
+                    InputField { label: "m12", value: String::new() },
+                    InputField { label: "m21", value: String::new() },
+                    InputField { label: "m22", value: String::new() }
+                ],
+                Determinant3x3 | Inverse3x3 | Transpose3x3 => vec![
+                    InputField { label: "m11", value: String::new() },
+                    InputField { label: "m12", value: String::new() },
+                    InputField { label: "m13", value: String::new() },
+                    InputField { label: "m21", value: String::new() },
+                    InputField { label: "m22", value: String::new() },
+                    InputField { label: "m23", value: String::new() },
+                    InputField { label: "m31", value: String::new() },
+                    InputField { label: "m32", value: String::new() },
+                    InputField { label: "m33", value: String::new() }
+                ],
                 Matriks3x3 => vec![InputField { label: "a", value: String::new() }, InputField { label: "b", value: String::new() }],
-                PersegiLuas | PersegiKeliling => vec![InputField { label: "sisi", value: String::new() }],
-                PersegiPanjangLuas | PersegiPanjangKeliling => vec![InputField { label: "panjang", value: String::new() }, InputField { label: "lebar", value: String::new() }],
-                SegitigaLuas => vec![InputField { label: "alas", value: String::new() }, InputField { label: "tinggi", value: String::new() }],
-                SegitigaKeliling => vec![InputField { label: "sisi1", value: String::new() }, InputField { label: "sisi2", value: String::new() }, InputField { label: "sisi3", value: String::new() }],
-                LingkaranLuas | LingkaranKeliling => vec![InputField { label: "r", value: String::new() }],
-                Mean | Median | Modus | Varian | StandarDeviasi => vec![InputField { label: "data (pisahkan koma)", value: String::new() }],
-                KonversiBasis => vec![InputField { label: "num", value: String::new() }, InputField { label: "base", value: String::new() }],
-                ParseNumber => vec![InputField { label: "str", value: String::new() }, InputField { label: "base", value: String::new() }],
-                DesimalKeBiner | DesimalKeOktal | DesimalKeHexadesimal => vec![InputField { label: "num", value: String::new() }],
-                BinerKeDesimal | BinerKeOktal | BinerKeHexadesimal => vec![InputField { label: "str", value: String::new() }],
-                HexadesimalKeDesimal | HexadesimalKeBiner | HexadesimalKeOktal => vec![InputField { label: "str", value: String::new() }],
-                OktalKeDesimal | OktalKeBiner | OktalKeHexadesimal => vec![InputField { label: "str", value: String::new() }],
-                _ => vec![], // <-- tambahkan ini!
+                PersegiLuas | PersegiKeliling => vec![InputField { label: "Sisi (s)", value: String::new() }],
+                PersegiPanjangLuas | PersegiPanjangKeliling => vec![InputField { label: "Panjang (p)", value: String::new() }, InputField { label: "Lebar (l)", value: String::new() }],
+                SegitigaLuas => vec![InputField { label: "Alas (a)", value: String::new() }, InputField { label: "Tinggi (t)", value: String::new() }],
+                SegitigaKeliling => vec![InputField { label: "Sisi 1 (a)", value: String::new() }, InputField { label: "Sisi 2 (b)", value: String::new() }, InputField { label: "Sisi 3 (c)", value: String::new() }],
+                LingkaranLuas | LingkaranKeliling => vec![InputField { label: "Jari-jari (r)", value: String::new() }],
+                Mean | Median | Modus | Varian | StandarDeviasi => vec![InputField { label: "Data (pisahkan koma)", value: String::new() }],
+                KonversiBasis => vec![InputField { label: "Angka (num)", value: String::new() }, InputField { label: "Basis tujuan (base)", value: String::new() }],
+                ParseNumber => vec![InputField { label: "String", value: String::new() }, InputField { label: "Basis asal (base)", value: String::new() }],
+                DesimalKeBiner | DesimalKeOktal | DesimalKeHexadesimal => vec![InputField { label: "Angka desimal (num)", value: String::new() }],
+                BinerKeDesimal | BinerKeOktal | BinerKeHexadesimal => vec![InputField { label: "Biner (str)", value: String::new() }],
+                HexadesimalKeDesimal | HexadesimalKeBiner | HexadesimalKeOktal => vec![InputField { label: "Hexadesimal (str)", value: String::new() }],
+                OktalKeDesimal | OktalKeBiner | OktalKeHexadesimal => vec![InputField { label: "Oktal (str)", value: String::new() }],
+                _ => vec![],
             };
         }
         // Fisika
