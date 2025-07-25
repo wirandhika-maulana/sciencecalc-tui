@@ -93,4 +93,3 @@ Jika memilih salah satu submenu, akan muncul daftar fungsi/perhitungan dari libr
 ## Referensi
 - [sciencecalc-rs](https://github.com/wirandhika-maulana/sciencecalc-rs)
 - [ratatui](https://github.com/ratatui-org/ratatui)
-- [spltui](https://github.com/lordpaijo/spltui)
