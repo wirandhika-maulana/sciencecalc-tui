@@ -636,7 +636,7 @@ fn ui(f: &mut Frame<'_>, app: &App) {
                 // Tampilkan kursor di field aktif
                 let x = input_layout[app.selected_field].x + app.input_fields[app.selected_field].value.len() as u16 + 1;
                 let y = input_layout[app.selected_field].y + 1;
-                f.set_cursor(x, y);
+                f.set_cursor_position((x, y));
                 // Info navigasi
                 let info = ratatui::widgets::Paragraph::new("Tab/Shift+Tab untuk pindah field, Enter untuk submit, ESC untuk kembali")
                     .style(Style::default().fg(Color::DarkGray))
@@ -666,7 +666,7 @@ fn ui(f: &mut Frame<'_>, app: &App) {
                 f.render_widget(input, layout[2]);
                 let x = layout[2].x + app.input.len() as u16 + 1;
                 let y = layout[2].y + 1;
-                f.set_cursor(x, y);
+                f.set_cursor_position((x, y));
             }
         }
         AppState::Output => {
@@ -962,6 +962,202 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
                                             let r = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
                                             let hasil = 2.0 * std::f64::consts::PI * r; // fallback: rumus manual
                                             app.output = format!("Keliling lingkaran (r={}) = {}", r, hasil);
+                                        },
+                                        FloatToFraction => {
+                                            let x = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let result = sciencecalc_rs::matematika::aljabar::Aljabar::float_to_fraction(x);
+                                            app.output = format!("{} = {}", x, result);
+                                        },
+                                        SPLSVFrac => {
+                                            let a = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            let b = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let x = sciencecalc_rs::matematika::aljabar::Aljabar::splsv_frac(a, b);
+                                            app.output = match x {
+                                                Some(val) => format!("{}x = {}  =>  x = {} (pecahan)", a, b, val),
+                                                None => format!("{}x = {}  =>  Tidak ada solusi (no solution)", a, b),
+                                            };
+                                        },
+                                        SPLDVFrac => {
+                                            let a1 = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            let b1 = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            let c1 = app.input_fields.get(2).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let a2 = app.input_fields.get(3).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            let b2 = app.input_fields.get(4).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            let c2 = app.input_fields.get(5).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let result = sciencecalc_rs::matematika::aljabar::Aljabar::spldv_frac(a1, b1, c1, a2, b2, c2)
+                                                .map(|(x, y)| format!("x = {}, y = {}", x, y))
+                                                .unwrap_or_else(|| "Tidak ada solusi".to_string());
+                                            app.output = format!("Hasil (pecahan): {}", result);
+                                        },
+                                        Kuadrat => {
+                                            let a = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            let b = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let c = app.input_fields.get(2).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let hasil = sciencecalc_rs::matematika::aljabar::Aljabar::kuadrat(a, b, c);
+                                            app.output = format!("Akar persamaan: {:?}", hasil);
+                                        },
+                                        KuadratFrac => {
+                                            let a = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            let b = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let c = app.input_fields.get(2).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let hasil = sciencecalc_rs::matematika::aljabar::Aljabar::kuadrat_frac(a, b, c);
+                                            app.output = format!("Akar persamaan (pecahan): {:?}", hasil);
+                                        },
+                                        Determinant2x2 => {
+                                            let a = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let b = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let c = app.input_fields.get(2).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let d = app.input_fields.get(3).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let det = sciencecalc_rs::matematika::aljabar::Aljabar::determinant_2x2(a, b, c, d);
+                                            app.output = format!("Determinan 2x2 = {}", det);
+                                        },
+                                        Inverse2x2 => {
+                                            let a = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let b = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let c = app.input_fields.get(2).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let d = app.input_fields.get(3).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let inv = sciencecalc_rs::matematika::aljabar::Aljabar::inverse_2x2(a, b, c, d);
+                                            app.output = format!("Inverse 2x2 = {:?}", inv);
+                                        },
+                                        Kombinasi => {
+                                            let n = app.input_fields.get(0).and_then(|f| f.value.parse::<u64>().ok()).unwrap_or(0);
+                                            let r = app.input_fields.get(1).and_then(|f| f.value.parse::<u64>().ok()).unwrap_or(0);
+                                            let hasil = sciencecalc_rs::matematika::kombinatorika::kombinasi(n, r);
+                                            app.output = format!("C({}, {}) = {}", n, r, hasil);
+                                        },
+                                        Permutasi => {
+                                            let n = app.input_fields.get(0).and_then(|f| f.value.parse::<u64>().ok()).unwrap_or(0);
+                                            let r = app.input_fields.get(1).and_then(|f| f.value.parse::<u64>().ok()).unwrap_or(0);
+                                            let hasil = sciencecalc_rs::matematika::kombinatorika::permutasi(n, r);
+                                            app.output = format!("P({}, {}) = {}", n, r, hasil);
+                                        },
+                                        KombinasiPerulangan => {
+                                            let n = app.input_fields.get(0).and_then(|f| f.value.parse::<u64>().ok()).unwrap_or(0);
+                                            let r = app.input_fields.get(1).and_then(|f| f.value.parse::<u64>().ok()).unwrap_or(0);
+                                            let hasil = sciencecalc_rs::matematika::kombinatorika::kombinasi_perulangan(n, r);
+                                            app.output = format!("C'({}, {}) = {}", n, r, hasil);
+                                        },
+                                        PermutasiPerulangan => {
+                                            let n = app.input_fields.get(0).and_then(|f| f.value.parse::<u64>().ok()).unwrap_or(0);
+                                            // Input kedua: pengulangan, misal: 2,2,1
+                                            let pengulangan: Vec<u64> = app.input_fields.get(1)
+                                                .map(|f| f.value.split(',').filter_map(|s| s.trim().parse::<u64>().ok()).collect())
+                                                .unwrap_or_default();
+                                            let hasil = sciencecalc_rs::matematika::kombinatorika::permutasi_perulangan(n, &pengulangan);
+                                            app.output = format!("P'({}, {:?}) = {}", n, pengulangan, hasil);
+                                        },
+                                        // Statistika
+                                        Mean => {
+                                            let data = app.input_fields.get(0).map(|f| f.value.split(',').filter_map(|s| s.trim().parse::<f64>().ok()).collect::<Vec<_>>()).unwrap_or_default();
+                                            let mean = if !data.is_empty() { data.iter().sum::<f64>() / data.len() as f64 } else { 0.0 };
+                                            app.output = format!("Mean = {}", mean);
+                                        },
+                                        Median => {
+                                            let mut data = app.input_fields.get(0).map(|f| f.value.split(',').filter_map(|s| s.trim().parse::<f64>().ok()).collect::<Vec<_>>()).unwrap_or_default();
+                                            data.sort_by(|a, b| a.partial_cmp(b).unwrap());
+                                            let median = if data.is_empty() { 0.0 } else if data.len() % 2 == 1 {
+                                                data[data.len()/2]
+                                            } else {
+                                                (data[data.len()/2 - 1] + data[data.len()/2]) / 2.0
+                                            };
+                                            app.output = format!("Median = {}", median);
+                                        },
+                                        Modus => {
+                                            let data = app.input_fields.get(0)
+                                                .map(|f| f.value.split(',').map(|s| s.trim().to_string()).collect::<Vec<_>>())
+                                                .unwrap_or_default();
+                                            let mut frek = std::collections::HashMap::new();
+                                            for x in &data { *frek.entry(x).or_insert(0) += 1; }
+                                            let modus = frek.iter().max_by_key(|e| e.1).map(|(k,_)| k.as_str().to_string()).unwrap_or_else(|| String::new());
+                                            app.output = format!("Modus = {}", modus);
+                                        },
+                                        Varian => {
+                                            let data = app.input_fields.get(0).map(|f| f.value.split(',').filter_map(|s| s.trim().parse::<f64>().ok()).collect::<Vec<_>>()).unwrap_or_default();
+                                            let mean = if !data.is_empty() { data.iter().sum::<f64>() / data.len() as f64 } else { 0.0 };
+                                            let varian = if !data.is_empty() { data.iter().map(|x| (x-mean).powi(2)).sum::<f64>() / data.len() as f64 } else { 0.0 };
+                                            app.output = format!("Varian = {}", varian);
+                                        },
+                                        StandarDeviasi => {
+                                            let data = app.input_fields.get(0)
+                                                .map(|f| f.value.split(',').filter_map(|s| s.trim().parse::<f64>().ok()).collect::<Vec<_>>())
+                                                .unwrap_or_default();
+                                            let mean = if !data.is_empty() { data.iter().sum::<f64>() / data.len() as f64 } else { 0.0 };
+                                            let varian = if !data.is_empty() { data.iter().map(|x| (x-mean).powi(2)).sum::<f64>() / data.len() as f64 } else { 0.0 };
+                                            let stddev = varian.sqrt();
+                                            app.output = format!("Standar Deviasi = {}", stddev);
+                                        },
+                                        // Basis
+                                        KonversiBasis => {
+                                            let num = app.input_fields.get(0).and_then(|f| f.value.parse::<u32>().ok()).unwrap_or(0);
+                                            let base = app.input_fields.get(1).and_then(|f| f.value.parse::<u32>().ok()).unwrap_or(10);
+                                            let hasil = format!("{:b}", num);
+                                            app.output = format!("Angka {} ke basis {} = {}", num, base, hasil);
+                                        },
+                                        ParseNumber => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let base = app.input_fields.get(1).and_then(|f| f.value.parse::<u32>().ok()).unwrap_or(10);
+                                            let hasil = u32::from_str_radix(&s, base).unwrap_or(0);
+                                            app.output = format!("String '{}' basis {} = {}", s, base, hasil);
+                                        },
+                                        DesimalKeBiner => {
+                                            let num = app.input_fields.get(0).and_then(|f| f.value.parse::<u32>().ok()).unwrap_or(0);
+                                            app.output = format!("Biner: {:b}", num);
+                                        },
+                                        DesimalKeOktal => {
+                                            let num = app.input_fields.get(0).and_then(|f| f.value.parse::<u32>().ok()).unwrap_or(0);
+                                            app.output = format!("Oktal: {:o}", num);
+                                        },
+                                        DesimalKeHexadesimal => {
+                                            let num = app.input_fields.get(0).and_then(|f| f.value.parse::<u32>().ok()).unwrap_or(0);
+                                            app.output = format!("Hexadesimal: {:X}", num);
+                                        },
+                                        BinerKeDesimal => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let hasil = u32::from_str_radix(&s, 2).unwrap_or(0);
+                                            app.output = format!("Desimal: {}", hasil);
+                                        },
+                                        BinerKeOktal => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let des = u32::from_str_radix(&s, 2).unwrap_or(0);
+                                            app.output = format!("Oktal: {:o}", des);
+                                        },
+                                        BinerKeHexadesimal => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let des = u32::from_str_radix(&s, 2).unwrap_or(0);
+                                            app.output = format!("Hexadesimal: {:X}", des);
+                                        },
+                                        HexadesimalKeDesimal => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let hasil = u32::from_str_radix(&s, 16).unwrap_or(0);
+                                            app.output = format!("Desimal: {}", hasil);
+                                        },
+                                        HexadesimalKeBiner => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let des = u32::from_str_radix(&s, 16).unwrap_or(0);
+                                            app.output = format!("Biner: {:b}", des);
+                                        },
+                                        HexadesimalKeOktal => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let des = u32::from_str_radix(&s, 16).unwrap_or(0);
+                                            app.output = format!("Oktal: {:o}", des);
+                                        },
+                                        OktalKeDesimal => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let hasil = u32::from_str_radix(&s, 8).unwrap_or(0);
+                                            app.output = format!("Desimal: {}", hasil);
+                                        },
+                                        OktalKeBiner => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let des = u32::from_str_radix(&s, 8).unwrap_or(0);
+                                            app.output = format!("Biner: {:b}", des);
+                                        },
+                                        OktalKeHexadesimal => {
+                                            let s = app.input_fields.get(0).map(|f| f.value.clone()).unwrap_or_default();
+                                            let des = u32::from_str_radix(&s, 8).unwrap_or(0);
+                                            app.output = format!("Hexadesimal: {:X}", des);
+                                        },
+                                        Matriks2x2 | Transpose2x2 | Determinant3x3 | Matriks3x3 | Inverse3x3 | Transpose3x3 => {
+                                            app.output = "[Belum diintegrasi] Fungsi matriks lanjutan belum tersedia".to_string();
                                         },
                                         _ => {
                                             app.output = "[TODO] Fungsi ini belum diintegrasi ke sciencecalc-rs".to_string();
