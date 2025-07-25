@@ -511,19 +511,52 @@ fn ui(f: &mut Frame<'_>, app: &App) {
                     Pangkat => "Contoh: base=2, eksponen=3 (2^3=8)".to_string(),
                     AkarKuadrat => "Contoh: x=16 (akar 16=4)".to_string(),
                     Faktorial => "Contoh: n=5 (5!=120)".to_string(),
+                    FloatToFraction => "Contoh: x=2.5 (2.5=5/2)".to_string(),
                     SPLSV => "Contoh: a=2, b=4 (2x=4, x=2)".to_string(),
+                    SPLSVFrac => "Contoh: a=1.5, b=3 (1.5x=3, x=2)".to_string(),
                     SPLDV => "Contoh: a1=2, b1=3, c1=13, a2=1, b2=2, c2=8 (2x+3y=13, x+2y=8)".to_string(),
+                    SPLDVFrac => "Contoh: a1=1.5, b1=2.5, c1=8, a2=2, b2=3, c2=13 (1.5x+2.5y=8, 2x+3y=13)".to_string(),
                     Kuadrat => "Contoh: a=1, b=-3, c=2 (x^2-3x+2=0, x=1 atau x=2)".to_string(),
+                    KuadratFrac => "Contoh: a=0.5, b=-1.5, c=1 (0.5x^2-1.5x+1=0)".to_string(),
+                    Determinant2x2 => "Contoh: a=1, b=2, c=3, d=4 (|1 2| |3 4|)".to_string(),
+                    Matriks2x2 => "Contoh: m11=1, m12=2, m21=3, m22=4 (matriks 2x2)".to_string(),
+                    Inverse2x2 => "Contoh: a=1, b=2, c=3, d=4 (inverse matriks 2x2)".to_string(),
+                    Transpose2x2 => "Contoh: m11=1, m12=2, m21=3, m22=4 (transpose matriks 2x2)".to_string(),
+                    Determinant3x3 => "Contoh: m11=1, m12=2, m13=3, m21=4, m22=5, m23=6, m31=7, m32=8, m33=9 (|1 2 3|...)".to_string(),
+                    Matriks3x3 => "Contoh: a=1, b=2 (matriks 3x3, isi sesuai kebutuhan)".to_string(),
+                    Inverse3x3 => "Contoh: m11=1, m12=2, m13=3, m21=4, m22=5, m23=6, m31=7, m32=8, m33=9 (inverse matriks 3x3)".to_string(),
+                    Transpose3x3 => "Contoh: m11=1, m12=2, m13=3, m21=4, m22=5, m23=6, m31=7, m32=8, m33=9 (transpose matriks 3x3)".to_string(),
                     PersegiLuas => "Contoh: sisi=4 (L=16)".to_string(),
+                    PersegiKeliling => "Contoh: sisi=4 (K=16)".to_string(),
                     PersegiPanjangLuas => "Contoh: panjang=5, lebar=3 (L=15)".to_string(),
+                    PersegiPanjangKeliling => "Contoh: panjang=5, lebar=3 (K=16)".to_string(),
                     SegitigaLuas => "Contoh: alas=6, tinggi=4 (L=12)".to_string(),
+                    SegitigaKeliling => "Contoh: sisi1=3, sisi2=4, sisi3=5 (K=12)".to_string(),
                     LingkaranLuas => "Contoh: r=7 (L=153.94)".to_string(),
+                    LingkaranKeliling => "Contoh: r=7 (K=43.98)".to_string(),
                     Mean => "Contoh: data=1,2,3,4,5 (mean=3)".to_string(),
+                    Median => "Contoh: data=1,2,3,4,5 (median=3)".to_string(),
+                    Modus => "Contoh: data=1,2,2,3,4 (modus=2)".to_string(),
+                    Varian => "Contoh: data=1,2,3,4,5 (varian=2.5)".to_string(),
+                    StandarDeviasi => "Contoh: data=1,2,3,4,5 (std dev=1.58)".to_string(),
                     Kombinasi => "Contoh: n=5, r=2 (C(5,2)=10)".to_string(),
                     Permutasi => "Contoh: n=5, r=2 (P(5,2)=20)".to_string(),
+                    KombinasiPerulangan => "Contoh: n=5, r=2 (C'(5,2)=15)".to_string(),
+                    PermutasiPerulangan => "Contoh: n=3, r=2 (P'(3,2)=9)".to_string(),
                     KonversiBasis => "Contoh: num=10, base=2 (1010)".to_string(),
                     ParseNumber => "Contoh: str=1010, base=2 (10)".to_string(),
-                    _ => "Contoh: Isi sesuai label field".to_string(),
+                    DesimalKeBiner => "Contoh: num=10 (1010)".to_string(),
+                    DesimalKeOktal => "Contoh: num=10 (12)".to_string(),
+                    DesimalKeHexadesimal => "Contoh: num=10 (A)".to_string(),
+                    BinerKeDesimal => "Contoh: str=1010 (10)".to_string(),
+                    BinerKeOktal => "Contoh: str=1010 (12)".to_string(),
+                    BinerKeHexadesimal => "Contoh: str=1010 (A)".to_string(),
+                    HexadesimalKeDesimal => "Contoh: str=A (10)".to_string(),
+                    HexadesimalKeBiner => "Contoh: str=A (1010)".to_string(),
+                    HexadesimalKeOktal => "Contoh: str=A (12)".to_string(),
+                    OktalKeDesimal => "Contoh: str=12 (10)".to_string(),
+                    OktalKeBiner => "Contoh: str=12 (1010)".to_string(),
+                    OktalKeHexadesimal => "Contoh: str=12 (A)".to_string(),
                 };
             } else if let Some(func) = app.current_func_fisika {
                 use FisikaFunc::*;
@@ -531,7 +564,7 @@ fn ui(f: &mut Frame<'_>, app: &App) {
                     EnergiKinetik => "Contoh: m=2, v=3 (Ek=0.5*2*3^2=9)".to_string(),
                     EnergiPotensial => "Contoh: m=2, g=10, h=5 (Ep=2*10*5=100)".to_string(),
                     Gaya => "Contoh: m=2, a=5 (F=2*5=10)".to_string(),
-                    GLBBPerpindahan => "Contoh: v0=2, t=3, a=4 (s=2*3+0.5*4*9=6+18=24)".to_string(),
+                    GLBBPerpindahan => "Contoh: v0=2, t=3, a=4 (s=2*3+0.5*4*9=24)".to_string(),
                     GLBBKecepatanAkhir => "Contoh: v0=2, a=3, t=4 (vt=2+3*4=14)".to_string(),
                     OhmTegangan => "Contoh: i=2, r=5 (V=2*5=10)".to_string(),
                     OhmArus => "Contoh: v=10, r=5 (I=10/5=2)".to_string(),
@@ -544,7 +577,7 @@ fn ui(f: &mut Frame<'_>, app: &App) {
                     Molaritas => "Contoh: n=0.5, V=1 (M=0.5/1=0.5)".to_string(),
                     PHAsamKuat => "Contoh: [H+]=0.01 (pH=2)".to_string(),
                     MassaProduk => "Contoh: n=2, Mr=18 (m=2*18=36)".to_string(),
-                    PersenHasil => "Contoh: aktual=8, teoritis=10 (80%)".to_string(),
+                    PersenHasil => "Contoh: aktual=8, teoritis=10 (%=80)".to_string(),
                     JumlahMol => "Contoh: massa=10, Mr=2 (n=10/2=5)".to_string(),
                 };
             }
@@ -856,21 +889,48 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
                                         },
                                         PersegiLuas => {
                                             let sisi = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
-                                            app.output = "[TODO] Fungsi ini belum diintegrasi ke sciencecalc-rs".to_string();
+                                            let hasil = sisi * sisi; // fallback: rumus manual
+                                            app.output = format!("Luas persegi (sisi={}) = {}", sisi, hasil);
+                                        },
+                                        PersegiKeliling => {
+                                            let sisi = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let hasil = 4.0 * sisi; // fallback: rumus manual
+                                            app.output = format!("Keliling persegi (sisi={}) = {}", sisi, hasil);
                                         },
                                         PersegiPanjangLuas => {
                                             let p = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
                                             let lbr = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
-                                            app.output = "[TODO] Fungsi ini belum diintegrasi ke sciencecalc-rs".to_string();
+                                            let hasil = p * lbr; // fallback: rumus manual
+                                            app.output = format!("Luas persegi panjang (p={}, l={}) = {}", p, lbr, hasil);
+                                        },
+                                        PersegiPanjangKeliling => {
+                                            let p = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let lbr = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let hasil = 2.0 * (p + lbr); // fallback: rumus manual
+                                            app.output = format!("Keliling persegi panjang (p={}, l={}) = {}", p, lbr, hasil);
                                         },
                                         SegitigaLuas => {
                                             let alas = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
                                             let tinggi = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
-                                            app.output = "[TODO] Fungsi ini belum diintegrasi ke sciencecalc-rs".to_string();
+                                            let hasil = 0.5 * alas * tinggi; // fallback: rumus manual
+                                            app.output = format!("Luas segitiga (alas={}, tinggi={}) = {}", alas, tinggi, hasil);
+                                        },
+                                        SegitigaKeliling => {
+                                            let s1 = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let s2 = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let s3 = app.input_fields.get(2).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let hasil = s1 + s2 + s3; // fallback: rumus manual
+                                            app.output = format!("Keliling segitiga (sisi1={}, sisi2={}, sisi3={}) = {}", s1, s2, s3, hasil);
                                         },
                                         LingkaranLuas => {
                                             let r = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
-                                            app.output = "[TODO] Fungsi ini belum diintegrasi ke sciencecalc-rs".to_string();
+                                            let hasil = std::f64::consts::PI * r * r; // fallback: rumus manual
+                                            app.output = format!("Luas lingkaran (r={}) = {}", r, hasil);
+                                        },
+                                        LingkaranKeliling => {
+                                            let r = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let hasil = 2.0 * std::f64::consts::PI * r; // fallback: rumus manual
+                                            app.output = format!("Keliling lingkaran (r={}) = {}", r, hasil);
                                         },
                                         _ => {
                                             app.output = "[TODO] Fungsi ini belum diintegrasi ke sciencecalc-rs".to_string();
