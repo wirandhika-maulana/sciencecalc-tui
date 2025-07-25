@@ -964,9 +964,16 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
                                             app.output = format!("Keliling lingkaran (r={}) = {}", r, hasil);
                                         },
                                         FloatToFraction => {
-                                            let x = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
-                                            let result = sciencecalc_rs::matematika::aljabar::Aljabar::float_to_fraction(x);
-                                            app.output = format!("{} = {}", x, result);
+                                            let x = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok());
+                                            match x {
+                                                Some(val) => {
+                                                    let result = sciencecalc_rs::matematika::aljabar::Aljabar::float_to_fraction(val);
+                                                    app.output = format!("{} = {}", val, result);
+                                                },
+                                                None => {
+                                                    app.output = "Input tidak valid! Masukkan angka desimal.".to_string();
+                                                }
+                                            }
                                         },
                                         SPLSVFrac => {
                                             let a = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
@@ -1156,11 +1163,78 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
                                             let des = u32::from_str_radix(&s, 8).unwrap_or(0);
                                             app.output = format!("Hexadesimal: {:X}", des);
                                         },
-                                        Matriks2x2 | Transpose2x2 | Determinant3x3 | Matriks3x3 | Inverse3x3 | Transpose3x3 => {
-                                            app.output = "[Belum diintegrasi] Fungsi matriks lanjutan belum tersedia".to_string();
+                                        Matriks2x2 => {
+                                            // Input: 8 angka (2 matriks 2x2)
+                                            let m1: [[f64; 2]; 2] = [
+                                                [app.input_fields.get(0).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(1).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(2).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(3).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                            ];
+                                            let m2: [[f64; 2]; 2] = [
+                                                [app.input_fields.get(4).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(5).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(6).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(7).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                            ];
+                                            let hasil = sciencecalc_rs::matematika::aljabar::Aljabar::matriks_2x2(m1, m2);
+                                            app.output = format!("Hasil Matriks 2x2:\n[{:.2}, {:.2}]\n[{:.2}, {:.2}]", hasil[0][0], hasil[0][1], hasil[1][0], hasil[1][1]);
+                                        },
+                                        Transpose2x2 => {
+                                            // Input: 4 angka (matriks 2x2)
+                                            let m: [[f64; 2]; 2] = [
+                                                [app.input_fields.get(0).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(1).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(2).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(3).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                            ];
+                                            let hasil = sciencecalc_rs::matematika::aljabar::Aljabar::transpose_2x2(m);
+                                            app.output = format!("Transpose Matriks 2x2:\n[{:.2}, {:.2}]\n[{:.2}, {:.2}]", hasil[0][0], hasil[0][1], hasil[1][0], hasil[1][1]);
+                                        },
+                                        Determinant3x3 => {
+                                            // Input: 9 angka (matriks 3x3)
+                                            let m: [[f64; 3]; 3] = [
+                                                [app.input_fields.get(0).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(1).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(2).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(3).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(4).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(5).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(6).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(7).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(8).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                            ];
+                                            let det = sciencecalc_rs::matematika::aljabar::Aljabar::determinant_3x3(m);
+                                            app.output = format!("Determinan 3x3 = {:.2}", det);
+                                        },
+                                        Matriks3x3 => {
+                                            // Input: 18 angka (2 matriks 3x3)
+                                            let a: [[f64; 3]; 3] = [
+                                                [app.input_fields.get(0).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(1).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(2).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(3).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(4).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(5).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(6).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(7).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(8).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                            ];
+                                            let b: [[f64; 3]; 3] = [
+                                                [app.input_fields.get(9).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(10).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(11).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(12).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(13).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(14).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(15).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(16).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(17).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                            ];
+                                            let hasil = sciencecalc_rs::matematika::aljabar::Aljabar::matriks_3x3(a, b);
+                                            app.output = format!("Hasil Matriks 3x3:\n[{:.2}, {:.2}, {:.2}]\n[{:.2}, {:.2}, {:.2}]\n[{:.2}, {:.2}, {:.2}]", hasil[0][0], hasil[0][1], hasil[0][2], hasil[1][0], hasil[1][1], hasil[1][2], hasil[2][0], hasil[2][1], hasil[2][2]);
+                                        },
+                                        Inverse3x3 => {
+                                            // Input: 9 angka (matriks 3x3)
+                                            let m: [[f64; 3]; 3] = [
+                                                [app.input_fields.get(0).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(1).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(2).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(3).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(4).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(5).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(6).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(7).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(8).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                            ];
+                                            let inv = sciencecalc_rs::matematika::aljabar::Aljabar::inverse_3x3(m);
+                                            app.output = match inv {
+                                                Some(hasil) => format!("Inverse Matriks 3x3:\n[{:.4}, {:.4}, {:.4}]\n[{:.4}, {:.4}, {:.4}]\n[{:.4}, {:.4}, {:.4}]", hasil[0][0], hasil[0][1], hasil[0][2], hasil[1][0], hasil[1][1], hasil[1][2], hasil[2][0], hasil[2][1], hasil[2][2]),
+                                                None => "Matriks tidak invertible (determinan = 0)".to_string(),
+                                            };
+                                        },
+                                        Transpose3x3 => {
+                                            // Input: 9 angka (matriks 3x3)
+                                            let m: [[f64; 3]; 3] = [
+                                                [app.input_fields.get(0).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(1).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(2).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(3).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(4).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(5).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                                [app.input_fields.get(6).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(7).and_then(|f| f.value.parse().ok()).unwrap_or(0.0), app.input_fields.get(8).and_then(|f| f.value.parse().ok()).unwrap_or(0.0)],
+                                            ];
+                                            let hasil = sciencecalc_rs::matematika::aljabar::Aljabar::transpose_3x3(m);
+                                            app.output = format!("Transpose Matriks 3x3:\n[{:.2}, {:.2}, {:.2}]\n[{:.2}, {:.2}, {:.2}]\n[{:.2}, {:.2}, {:.2}]", hasil[0][0], hasil[0][1], hasil[0][2], hasil[1][0], hasil[1][1], hasil[1][2], hasil[2][0], hasil[2][1], hasil[2][2]);
                                         },
                                         _ => {
-                                            app.output = "[TODO] Fungsi ini belum diintegrasi ke sciencecalc-rs".to_string();
+                                            app.output = "Fungsi ini belum tersedia di sciencecalc-rs atau belum diimplementasikan di TUI. Silakan cek dokumentasi atau update library.".to_string();
                                         }
                                     }
                                 } else if let Some(func) = app.current_func_fisika {
@@ -1185,14 +1259,42 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
                                             let ep = energi::energi_potensial(m, g, h);
                                             app.output = format!("Ep = {} Joule", ep);
                                         },
+                                        GLBBPerpindahan => {
+                                            let v0 = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let t = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let a = app.input_fields.get(2).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            // s = v0*t + 0.5*a*t^2
+                                            let s = v0 * t + 0.5 * a * t * t;
+                                            app.output = format!("Perpindahan (s) = {} m", s);
+                                        },
+                                        GLBBKecepatanAkhir => {
+                                            let v0 = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let a = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let t = app.input_fields.get(2).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            // vt = v0 + a*t
+                                            let vt = v0 + a * t;
+                                            app.output = format!("Kecepatan akhir (vt) = {} m/s", vt);
+                                        },
                                         OhmTegangan => {
                                             let i = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
                                             let r = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
                                             let v = listrik::ohm_tegangannya(i, r);
                                             app.output = format!("V = {} Volt", v);
                                         },
+                                        OhmArus => {
+                                            let v = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let r = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            let i = v / r;
+                                            app.output = format!("I = {} Ampere", i);
+                                        },
+                                        OhmHambatan => {
+                                            let v = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let i = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            let r = v / i;
+                                            app.output = format!("R = {} Ohm", r);
+                                        },
                                         _ => {
-                                            app.output = "[TODO] Fungsi ini belum diintegrasi ke sciencecalc-rs".to_string();
+                                            app.output = "Fungsi ini belum tersedia di sciencecalc-rs atau belum diimplementasikan di TUI. Silakan cek dokumentasi atau update library.".to_string();
                                         }
                                     }
                                 } else if let Some(func) = app.current_func_kimia {
@@ -1227,8 +1329,17 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
                                             let n = stoikiometri::jumlah_mol(massa, mr);
                                             app.output = format!("n = {} mol", n);
                                         },
+                                        TekananGasIdeal => {
+                                            let n = app.input_fields.get(0).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.0);
+                                            let r = app.input_fields.get(1).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(0.082);
+                                            let t = app.input_fields.get(2).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(273.0);
+                                            let v = app.input_fields.get(3).and_then(|f| f.value.parse::<f64>().ok()).unwrap_or(1.0);
+                                            // P = nRT/V
+                                            let p = if v != 0.0 { n * r * t / v } else { 0.0 };
+                                            app.output = format!("Tekanan Gas Ideal (P) = {} atm", p);
+                                        },
                                         _ => {
-                                            app.output = "[TODO] Fungsi ini belum diintegrasi ke sciencecalc-rs".to_string();
+                                            app.output = "Fungsi ini belum tersedia di sciencecalc-rs atau belum diimplementasikan di TUI. Silakan cek dokumentasi atau update library.".to_string();
                                         }
                                     }
                                 } else {
