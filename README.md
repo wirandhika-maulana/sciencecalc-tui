@@ -56,7 +56,7 @@ Dibangun oleh **Wirandhika Maulana Akbar** dengan Rust dan framework TUI modern.
 - **Rust** + Cargo
 - **Ratatui** (TUI Framework)
 - **Crossterm** (Terminal Handling)
-- **matematika.rs** (Linear System Solver)
+- **sciencecalc-rs** (Library For Math, Physics, Chemistry)
 - **Log & env_logger**
 - **Chrono** (Timestamp Logging)
 
