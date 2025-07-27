@@ -41,7 +41,7 @@ Dibangun oleh **Wirandhika Maulana Akbar** dengan Rust dan framework TUI modern.
 
 | Language | TUI | Terminal | Math Engine | Logging |
 |----------|-----|----------|-------------|---------|
-| ![Rust](https://img.shields.io/badge/Rust-orange?style=for-the-badge&logo=rust) | ![Ratatui](https://img.shields.io/badge/Ratatui-22C55E?style=for-the-badge&logo=terminal) | ![Crossterm](https://img.shields.io/badge/Crossterm-4B5563?style=for-the-badge&logo=terminal) | ![lib.matematika-rs](https://img.shields.io/badge/sciencecalc-rs-blueviolet?style=for-the-badge) | ![Log](https://img.shields.io/badge/Logging-env_logger-red?style=for-the-badge) |
+| ![Rust](https://img.shields.io/badge/Rust-orange?style=for-the-badge&logo=rust) | ![Ratatui](https://img.shields.io/badge/Ratatui-22C55E?style=for-the-badge&logo=terminal) | ![Crossterm](https://img.shields.io/badge/Crossterm-4B5563?style=for-the-badge&logo=terminal) | ![lib.matematika-rs](https://img.shields.io/badge/sciencecalc.rs-blueviolet?style=for-the-badge) | ![Log](https://img.shields.io/badge/Logging-env_logger-red?style=for-the-badge) |
 
 </div>
 
