@@ -173,7 +173,7 @@ enum MatematikaFunc {
     Matriks3x3,
     Inverse3x3,
     Transpose3x3,
-    // Geometri (hanya contoh, detail fungsi akan diisi di patch berikutnya)
+    // Geometri (detail fungsi akan diisi di patch berikutnya)
     PersegiLuas,
     PersegiKeliling,
     PersegiPanjangLuas,
