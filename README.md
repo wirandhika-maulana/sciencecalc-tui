@@ -24,7 +24,7 @@
 
 ---
 
-<img src="https://github.com/wirandhika-maulana/sciencecalc-tui/blob/master/ssciencecalc-tui.png" alt="SCIENCECAL TUI Screenshot" style="max-width: 60%; border-radius: 12px; margin-top: 16px;" />
+<img src="https://github.com/wirandhika-maulana/sciencecalc-tui/blob/master/sciencecalc-tui.png" alt="SCIENCECAL TUI Screenshot" style="max-width: 60%; border-radius: 12px; margin-top: 16px;" />
 
 ## 👋 About
 
