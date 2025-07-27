@@ -1,5 +1,11 @@
+[![Rust](https://img.shields.io/badge/language-Rust-orange)](https://www.rust-lang.org/)
+[![Crates.io](https://img.shields.io/crates/v/sciencecalc-rs)](https://crates.io/crates/sciencecalc-rs)
+[![Crates.io](https://img.shields.io/crates/v/sciencecalc-tui)](https://crates.io/crates/sciencecalc-tui)
+[![GitHub stars](https://img.shields.io/github/stars/wirandhika-maulana/sciencecalc-tui)](https://github.com/wirandhika-maulana/sciencecalc-tui/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/wirandhika-maulana/sciencecalc-tui)](https://github.com/wirandhika-maulana/sciencecalc-tui/issues)
+[![GitHub forks](https://img.shields.io/github/forks/wirandhika-maulana/sciencecalc-tui)](https://github.com/wirandhika-maulana/sciencecalc-tui/network/members)
+[![GitHub commits](https://img.shields.io/github/commit-activity/m/wirandhika-maulana/sciencecalc-tui)](https://github.com/wirandhika-maulana/sciencecalc-tui/commits/master)
 [![MIT License](https://img.shields.io/github/license/wirandhika-maulana/sciencecalc-tui)](https://github.com/wirandhika-maulana/sciencecalc-tui/blob/master/LICENSE)
-
 
 <div align="center">
   <h1>📐 SCIENCE CALC TUI</h1>
