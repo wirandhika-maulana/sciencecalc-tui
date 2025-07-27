@@ -1,17 +1,17 @@
-[![MIT License](https://img.shields.io/github/license/wirandhika-maulana/project-spltui)](https://github.com/wirandhika-maulana/project-spltui/blob/main/LICENSE)
+[![MIT License](https://img.shields.io/github/license/wirandhika-maulana/sciencecalc-tui)](https://github.com/wirandhika-maulana/sciencecalc-tui/blob/master/LICENSE)
 
 
 <div align="center">
-  <h1>📐 SPLTUI</h1>
+  <h1>📐 SCIENCE CALC TUI</h1>
  
   
   <p>
-    <strong>Terminal Linear Equation Solver</strong><br>
+    <strong>A CALCULATOR TOOLKIT FOR MATEMATIKA, FISIKA, KIMIA</strong><br>
     Built with Rust, Ratatui, and Crossterm
   </p>
   
   <p>
-    <a href="https://crates.io/crates/spltui" target="_blank">
+    <a href="https://crates.io/crates/sciencecalc-tui" target="_blank">
       <img src="https://img.shields.io/badge/📦_Crate-spltui-orange?style=for-the-badge&logo=rust" alt="Crate">
     </a>
     <a href="#-getting-started">
@@ -24,7 +24,7 @@
 
 ---
 
-<img src="https://github.com/wirandhika-maulana/project-spltui/blob/main/ss-0.png" alt="SPLTUI Screenshot" style="max-width: 60%; border-radius: 12px; margin-top: 16px;" />
+<img src="https://github.com/wirandhika-maulana/sciencecalc-tui/blob/master/ssciencecalc-tui.png" alt="SCIENCECAL TUI Screenshot" style="max-width: 60%; border-radius: 12px; margin-top: 16px;" />
 
 ## 👋 About
 
@@ -130,24 +130,6 @@ Contributions are welcome!
 4. 📤 Push to the branch (`git push origin feature/AmazingFeature`)
 5. 🔄 Open a Pull Request
 
-### Command Line Arguments
-Adapun komponen tambahan *CLI Args* dengan penggunaannya sebagai berikut:
-```sh
-$ spltui --help
-```
-
-| Argumen | Fungsi | Parameter | Contoh |
-|---------|--------|:---------:|--------|
-| `-h / --help` | Menampilkan `help`. | Tidak ada | `spltui --help` |
-| `-V / --version` | Menampilkan `version`. | Tidak ada | `spltui --version` |
-| `-v / --verbose` | Berjalan dengan mode `verbose`. | Tidak ada | `spltui --verbose` |
-| `-l / --log` | Mengspesifikasikan dimana file *log* disimpan dalam mode `verbose`. | Nama file `.log` | `spltui --verbose --log contoh_log.log` |
-| `-t / --theme` | Berjalan dengan tema yang dipilih. | Tema (i.e, `ligt`, `dark`) | `spltui --theme dark` |
-| `--spldv` | Masuk ke `state` SPLDV. | Tidak ada | `spltui --spldv` |
-| `--splsv` | Masuk ke `state` SPLSV. | Tidak ada | `spltui --splsv` |
-| `--hasil` | Masuk ke `state` hasil (langsung menunjukkan hasil). | Tidak ada | `spltui --splsv` |
-
----
 
 ## Kompatibilitas
 
@@ -187,3 +169,11 @@ $ spltui --help
 
 **Made with ❤️ by [Wirandhika Maulana Akbar](https://wirandhika.my.id/)**  
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file.
+
+> [!WARNING]
+>
+> REPOSITORI INI MASIH DALAM TAHAP PENGEMBANGAN.
+>
+> KESTABILAN DI DALAM *BRANCH* [`master`](https://github.com/wirandhika-maulana/sciencecalc-tui/tree/master) TIDAK DAPAT DIPASTIKAN!
+
+---
