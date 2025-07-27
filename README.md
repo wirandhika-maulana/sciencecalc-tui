@@ -28,7 +28,7 @@
 
 ## 👋 About
 
-**SPLTUI** (Sistem Persamaan Linear Terminal User Interface, atau SPLTUI, merupakan sebuah aplikasi kalkulator untuk menghitung sistem persamaan linear dengan berbagai variabel berbasis **terminal user interface** atau TUI.  
+**SCIENCECALC** merupakan sebuah aplikasi untuk menghitung secara otomatis berbagai perhitungan dalam Matematika, Fisika, & Kimia berbasis **terminal user interface** atau TUI.  
 Dibangun oleh **Wirandhika Maulana Akbar** dengan Rust dan framework TUI modern.
 
 ## 🚀 Live Demo
