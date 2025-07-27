@@ -33,7 +33,7 @@ Dibangun oleh **Wirandhika Maulana Akbar** dengan Rust dan framework TUI modern.
 
 ## 🚀 Live Demo
 
-📹 **Video Demonstrasi:** [YouTube - SPLTUI Demo]([https://youtu.be/C3TQK1qg3wk](https://github.com/wirandhika-maulana/sciencecalc-tui))
+📹 **Video Demonstrasi:** [Dokumentasi - SCIENCECALC-TUI Demo]([https://github.com/wirandhika-maulana/sciencecalc-tui])
 
 ## 🛠️ Tech Stack
 
