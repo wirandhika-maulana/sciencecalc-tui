@@ -8,7 +8,7 @@
 [![MIT License](https://img.shields.io/github/license/wirandhika-maulana/sciencecalc-tui)](https://github.com/wirandhika-maulana/sciencecalc-tui/blob/master/LICENSE)
 
 <div align="center">
-  <h1>📐 SCIENCE CALC TUI</h1>
+  <h1>📐 SCIENCECALC-TUI</h1>
  
   
   <p>
@@ -34,7 +34,7 @@
 
 ## 👋 About
 
-**SCIENCECALC** merupakan sebuah aplikasi untuk menghitung secara otomatis berbagai perhitungan dalam Matematika, Fisika, & Kimia berbasis **terminal user interface** atau TUI.  
+`sciencecalc-tui` merupakan sebuah aplikasi untuk menghitung secara otomatis berbagai perhitungan dalam Matematika, Fisika, & Kimia berbasis **terminal user interface** atau TUI.  
 Dibangun oleh **Wirandhika Maulana Akbar** dengan Rust dan framework TUI modern.
 
 ## 🚀 Live Demo
