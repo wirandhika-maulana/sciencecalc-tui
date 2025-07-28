@@ -1,6 +1,6 @@
 [package]
 name = "sciencecalc-tui"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Wirandhika Maulana Akbar <randikacreator22@gmail.com>"]
 description = "A terminal calculator toolkit for mathematics, physics, and chemistry in Rust. | Kalkulator Matematika, Fisika, Kimia berbasis TUI"
